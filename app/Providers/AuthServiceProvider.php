@@ -14,6 +14,7 @@ class AuthServiceProvider extends ServiceProvider
    */
   protected $policies = [
     'Eos\Model' => 'Eos\Policies\ModelPolicy',
+    \Eos\Entities\User::class => \Eos\Policies\v1\UserPolicy::class,
   ];
 
   /**

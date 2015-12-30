@@ -3,23 +3,25 @@
 namespace Eos\Http\Controllers\v1;
 
 use Eos\Http\Requests;
+use Gate;
 use Illuminate\Http\Request;
 use Eos\Http\Controllers\Controller;
+use Eos\Repositories\UserRepository;
 use Eos\Transformers\UserTransformer;
-use Eos\Repositories\UserRepositoryEloquent;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class UsersController extends Controller
 {
   /**
-   * @var \Eos\Repositories\UserRepositoryEloquent $repository
+   * @var \Eos\Repositories\UserRepository $repository
    */
   protected $repository;
 
   /**
    * UsersController constructor.
-   * @param \Eos\Repositories\UserRepositoryEloquent $repository
+   * @param \Eos\Repositories\UserRepository $repository
    */
-  public function __construct(UserRepositoryEloquent $repository)
+  public function __construct(UserRepository $repository)
   {
     $this->repository = $repository;
   }
@@ -31,6 +33,11 @@ class UsersController extends Controller
    */
   public function index()
   {
+    $user = $this->user();
+    if (policy($user)->canSeeAll($user)) {
+      throw new UnauthorizedHttpException("Bearer", "You are not authorized to see all users.", null, 0x00C00301);
+    }
+
     $users = $this->repository->all();
 
     return $this->response->collection($users, new UserTransformer);
@@ -54,7 +61,7 @@ class UsersController extends Controller
    */
   public function store(Request $request)
   {
-    //
+     // TODO Determine Request class name and set proper use stmt
   }
 
   /**

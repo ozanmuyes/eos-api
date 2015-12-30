@@ -144,11 +144,12 @@ return [
     Eos\Providers\AuthServiceProvider::class,
     Eos\Providers\EventServiceProvider::class,
     Eos\Providers\RouteServiceProvider::class,
+    Eos\Providers\RepositoryServiceProvider::class,
 
     Dingo\Api\Provider\LaravelServiceProvider::class,
 //    Barryvdh\Cors\ServiceProvider::class,
     Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-//    Eos\Repository\Providers\RepositoryServiceProvider::class,
+    Eos\Repository\Providers\RepositoryServiceProvider::class,
     Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
     // TODO Add cviebrock/eloquent-sluggable
 
@@ -201,7 +202,8 @@ return [
     'Validator' => Illuminate\Support\Facades\Validator::class,
     'View'      => Illuminate\Support\Facades\View::class,
 
-    'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+    'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
+    'JWTFactory'=> Tymon\JWTAuth\Facades\JWTFactory::class,
 
   ],
 
