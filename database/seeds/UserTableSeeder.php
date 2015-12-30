@@ -24,8 +24,8 @@ class UserTableSeeder extends Seeder
         "first_name" => "Ertem",
         "middle_name" => null,
         "last_name" => "Eğilmez",
-        "email" => "m.ozkul@gmail.com",
-        "password" => "m.ozkul@gmail.com",
+        "email" => "e.egilmez@gmail.com",
+        "password" => "e.egilmez@gmail.com",
         "user_groups" => [3]
       ],
       [
@@ -64,9 +64,9 @@ class UserTableSeeder extends Seeder
         "password" => Hash::make($user["password"])
       ]);
 
-      if (@$user["user_group"] !== null && count($user["user_group"]) > 0) {
-        foreach ($user["user_group"] as $userGroupId) {
-          $newUser->userGroups()->save(\Eos\Entities\UserGroup::find($userGroupId));
+      if (@$user["user_groups"] !== null && count($user["user_groups"]) > 0) {
+        foreach ($user["user_groups"] as $userGroupId) {
+          $newUser->userGroups()->attach($userGroupId);
         }
       }
     }

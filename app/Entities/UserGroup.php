@@ -63,7 +63,7 @@ class UserGroup extends Model implements Transformable
    */
   public function users()
   {
-    return $this->belongsToMany(User::class);
+    return $this->belongsToMany(User::class)->withTimestamps();
   }
 
   /**
@@ -73,6 +73,6 @@ class UserGroup extends Model implements Transformable
    */
   public function permissions()
   {
-    return $this->belongsToMany(User::class);
+    return $this->belongsToMany(Permission::class)->withTimestamps();
   }
 }

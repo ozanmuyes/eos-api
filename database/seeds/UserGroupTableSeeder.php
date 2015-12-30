@@ -15,32 +15,32 @@ class UserGroupTableSeeder extends Seeder
       [
         "name" => "developer",
         "title" => "Developer",
-        "permissions" => []
+        "permissions" => [1, 2, 3, 4, 5]
       ],
       [
         "name" => "tester",
         "title" => "Tester",
-        "permissions" => []
+        "permissions" => [1, 2, 3, 4, 5]
       ],
       [
         "name" => "administrator",
         "title" => "Administrator",
-        "permissions" => []
+        "permissions" => [2, 3, 4, 5]
       ],
       [
         "name" => "moderator",
         "title" => "Moderator",
-        "permissions" => []
+        "permissions" => [2]
       ],
       [
         "name" => "user",
         "title" => "User",
-        "permissions" => null
+        "permissions" => [5]
       ],
       [
         "name" => "visitor",
         "title" => "Visitor",
-        "permissions" => null
+        "permissions" => [5]
       ]
     ];
 
@@ -53,7 +53,7 @@ class UserGroupTableSeeder extends Seeder
 
       if (@$userGroup["permissions"] !== null && count($userGroup["permissions"]) > 0) {
         foreach ($userGroup["permissions"] as $permissionId) {
-          $newUserGroup->permissions()->save(\Eos\Entities\Permission::find($permissionId));
+          $newUserGroup->permissions()->attach($permissionId);
         }
       }
     }

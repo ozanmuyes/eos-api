@@ -78,6 +78,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
    */
   public function userGroups()
   {
-    return $this->belongsToMany(UserGroup::class);
+    return $this->belongsToMany(UserGroup::class)->withTimestamps();
   }
 }

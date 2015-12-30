@@ -63,6 +63,6 @@ class Permission extends Model implements Transformable
    */
   public function userGroups()
   {
-    return $this->belongsToMany(UserGroup::class);
+    return $this->belongsToMany(UserGroup::class)->withTimestamps();
   }
 }
