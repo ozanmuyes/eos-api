@@ -11,6 +11,17 @@
 |
 */
 
+/**
+ * @var \Dingo\Api\Routing\Router $api
+ */
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version("v1", function () use ($api) {
+  $api->group(["prefix" => "users", "middleware" => "api.auth"], function () use ($api) {
+    $api->get('/', '\Eos\Http\Controllers\v1\UsersController@index');
+  });
+});
+
 Route::get('/', function () {
   return view('welcome');
 });

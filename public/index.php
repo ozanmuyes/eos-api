@@ -33,6 +33,11 @@ require __DIR__.'/../bootstrap/autoload.php';
 |
 */
 
+/**
+ * The application implementation.
+ *
+ * @var \Illuminate\Contracts\Foundation\Application $app
+ */
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
 /*
@@ -47,6 +52,9 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 |
 */
 
+/**
+ * @var \Eos\Http\Kernel $kernel
+ */
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
 $response = $kernel->handle(
