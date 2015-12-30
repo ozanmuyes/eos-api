@@ -41,6 +41,6 @@ class UserGroupTransformer extends TransformerAbstract
    */
   public function includeUsers(UserGroup $userGroup)
   {
-    return $this->collection($userGroup->users(), new UserTransformer, "users");
+    return $this->collection($userGroup->users, new UserTransformer, "users");
   }
 }

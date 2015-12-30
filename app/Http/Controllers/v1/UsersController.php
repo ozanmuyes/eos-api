@@ -5,6 +5,7 @@ namespace Eos\Http\Controllers\v1;
 use Eos\Http\Requests;
 use Illuminate\Http\Request;
 use Eos\Http\Controllers\Controller;
+use Eos\Transformers\UserTransformer;
 use Eos\Repositories\UserRepositoryEloquent;
 
 class UsersController extends Controller
@@ -32,7 +33,7 @@ class UsersController extends Controller
   {
     $users = $this->repository->all();
 
-    return $users;
+    return $this->response->collection($users, new UserTransformer);
   }
 
   /**

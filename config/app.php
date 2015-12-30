@@ -147,7 +147,7 @@ return [
 
     Dingo\Api\Provider\LaravelServiceProvider::class,
 //    Barryvdh\Cors\ServiceProvider::class,
-//    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 //    Eos\Repository\Providers\RepositoryServiceProvider::class,
     Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
     // TODO Add cviebrock/eloquent-sluggable

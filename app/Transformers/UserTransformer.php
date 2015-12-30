@@ -27,6 +27,7 @@ class UserTransformer extends TransformerAbstract
     return [
       "id" => strval($user->id),
       "first-name" => $user->first_name,
+      "middle-name" => $user->middle_name,
       "last-name" => $user->last_name,
       "email" => $user->email,
       "created-at" => $user->created_at->toIso8601String(),
@@ -42,6 +43,6 @@ class UserTransformer extends TransformerAbstract
    */
   public function includeUserGroups(User $user)
   {
-    return $this->collection($user->userGroups(), new UserGroupTransformer, "user-groups");
+    return $this->collection($user->userGroups, new UserGroupTransformer, "user-groups");
   }
 }

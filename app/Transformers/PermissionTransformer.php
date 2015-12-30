@@ -37,11 +37,11 @@ class PermissionTransformer extends TransformerAbstract
   /**
    * Include user group(s) for individual user.
    *
-   * @param \Eos\Entities\UserGroup $permission
+   * @param \Eos\Entities\Permission $permission
    * @return \League\Fractal\Resource\Collection
    */
-  public function includeUserGroups(UserGroup $permission)
+  public function includeUserGroups(Permission $permission)
   {
-    return $this->collection($permission->userGroups(), new UserGroupTransformer, "user-groups");
+    return $this->collection($permission->userGroups, new UserGroupTransformer, "user-groups");
   }
 }
