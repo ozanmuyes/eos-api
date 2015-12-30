@@ -3,6 +3,8 @@
 namespace Eos\Exceptions;
 
 use Exception;
+use Dingo\Api\Http\Response;
+use Psr\Log\LoggerInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -21,6 +23,24 @@ class Handler extends ExceptionHandler
   ];
 
   /**
+   * @var \Eos\Exceptions\Factory $factory
+   */
+  protected $factory;
+
+  /**
+   * Controller constructor.
+   *
+   * @param \Psr\Log\LoggerInterface $log
+   * @param \Eos\Exceptions\Factory $factory
+   */
+  public function __construct(LoggerInterface $log, Factory $factory)
+  {
+    parent::__construct($log);
+
+    $this->factory = $factory;
+  }
+
+  /**
    * Report or log an exception.
    *
    * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
@@ -30,6 +50,38 @@ class Handler extends ExceptionHandler
   public function report(Exception $e)
   {
     parent::report($e);
+  }
+
+  /**
+   * Handle the exception and create corresponding error response.
+   * This exceptions thrown by the application (Laravel) or any
+   * vendor but not the API itself.
+   *
+   * @param \Exception $exception
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function handle(Exception $exception)
+  {
+    $this->report($exception);
+
+    $previousException = $exception->getPrevious();
+
+    if ($previousException === null) {
+      return $this->factory->item($exception);
+    } else {
+      // TODO Write collection codes
+    }
+
+    // TODO Neglect Helper
+    $errorsObject = Helper::createErrorsObjectFromException($exception);
+    if (Helper::isIndividualErrorsStatusDiffers($errorsObject)) {
+      $status = "422";
+    } else {
+      $status = strval($errorsObject[0]["status"]);
+    }
+
+    return new Response(["errors" => $errorsObject], $status);
   }
 
   /**

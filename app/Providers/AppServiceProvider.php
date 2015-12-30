@@ -2,6 +2,7 @@
 
 namespace Eos\Providers;
 
+use Exception;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
    */
   public function boot()
   {
-    //
+    app('Dingo\Api\Exception\Handler')->register(function (Exception $exception) {
+      return app('Eos\Exceptions\Handler')->handle($exception);
+    });
   }
 
   /**
