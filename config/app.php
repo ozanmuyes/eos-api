@@ -143,8 +143,9 @@ return [
     Eos\Providers\AppServiceProvider::class,
     Eos\Providers\AuthServiceProvider::class,
     Eos\Providers\EventServiceProvider::class,
-    Eos\Providers\RouteServiceProvider::class,
+    Eos\Providers\FractalServiceProvider::class,
     Eos\Providers\RepositoryServiceProvider::class,
+    Eos\Providers\RouteServiceProvider::class,
 
     Dingo\Api\Provider\LaravelServiceProvider::class,
 //    Barryvdh\Cors\ServiceProvider::class,
@@ -152,6 +153,7 @@ return [
     Eos\Repository\Providers\RepositoryServiceProvider::class,
     Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
     // TODO Add cviebrock/eloquent-sluggable
+    // TODO Modal windows http://adamniedzielski.github.io/blog/2015/10/09/routable-modal-dialog-in-ember-dot-js/
 
   ],
 
