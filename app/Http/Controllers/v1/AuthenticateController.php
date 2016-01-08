@@ -70,4 +70,9 @@ class AuthenticateController extends Controller
 
     return response()->json(["token" => $token->get()]);
   }
+
+  public function refresh()
+  {
+    return null;
+  }
 }

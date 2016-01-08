@@ -304,6 +304,10 @@ class ErrorObject implements Arrayable
         return "404";
       }
 
+      case 'BadMethodCallException': {
+        return "500";
+      }
+
       case 'ReflectionException': {
         return "500";
       }

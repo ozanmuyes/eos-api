@@ -13,7 +13,17 @@ class UserGroupTransformer extends TransformerAbstract
    * @var array
    */
   protected $availableIncludes = [
-    "users"
+    "users",
+    "permissions"
+  ];
+
+  /**
+   * List of resources to automatically include.
+   *
+   * @var array $defaultIncludes
+   */
+  protected $defaultIncludes = [
+    "permissions"
   ];
 
   /**
@@ -42,5 +52,16 @@ class UserGroupTransformer extends TransformerAbstract
   public function includeUsers(UserGroup $userGroup)
   {
     return $this->collection($userGroup->users, new UserTransformer, "users");
+  }
+
+  /**
+   * Include permission(s) for individual user group.
+   *
+   * @param \Eos\Entities\UserGroup $userGroup
+   * @return \League\Fractal\Resource\Collection
+   */
+  public function includePermissions(UserGroup $userGroup)
+  {
+    return $this->collection($userGroup->permissions, new PermissionTransformer, "permissions");
   }
 }

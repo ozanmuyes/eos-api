@@ -10,10 +10,19 @@ class UserTransformer extends TransformerAbstract
   /**
    * List of resources possible to include.
    *
-   * @var array
+   * @var array $availableIncludes
    */
   protected $availableIncludes = [
-    "user-groups"
+    "userGroups"
+  ];
+
+  /**
+   * List of resources to automatically include.
+   *
+   * @var array $defaultIncludes
+   */
+  protected $defaultIncludes = [
+    "userGroups"
   ];
 
   /**

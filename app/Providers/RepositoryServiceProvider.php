@@ -13,5 +13,6 @@ class RepositoryServiceProvider extends ServiceProvider {
   public function register()
   {
     app()->bind('\Eos\Repositories\UserRepository', '\Eos\Repositories\UserRepositoryEloquent');
+    app()->bind('\Eos\Repositories\UserGroupRepository', '\Eos\Repositories\UserGroupRepositoryEloquent');
   }
 }

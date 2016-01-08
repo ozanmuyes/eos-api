@@ -2,26 +2,24 @@
 
 namespace Eos\Http\Controllers\v1;
 
-use Gate;
 use Eos\Http\Requests;
 use Illuminate\Http\Request;
 use Eos\Http\Controllers\Controller;
-use Eos\Repositories\UserRepository;
-use Eos\Transformers\UserTransformer;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Eos\Repositories\UserGroupRepository;
+use Eos\Transformers\UserGroupTransformer;
 
-class UsersController extends Controller
+class UserGroupsController extends Controller
 {
   /**
-   * @var \Eos\Repositories\UserRepository $repository
+   * @var \Eos\Repositories\UserGroupRepository $repository
    */
   protected $repository;
 
   /**
    * UsersController constructor.
-   * @param \Eos\Repositories\UserRepository $repository
+   * @param \Eos\Repositories\UserGroupRepository $repository
    */
-  public function __construct(UserRepository $repository)
+  public function __construct(UserGroupRepository $repository)
   {
     $this->repository = $repository;
   }
@@ -33,14 +31,9 @@ class UsersController extends Controller
    */
   public function index()
   {
-    $user = $this->user();
-    if (!policy($user)->canSeeAll($user)) {
-      throw new UnauthorizedHttpException("Bearer", "You are not authorized to see all users.", null, 0x00C00301);
-    }
+    $userGroups = $this->repository->all();
 
-    $users = $this->repository->all();
-
-    return $this->response->collection($users, new UserTransformer, ["key" => "users"]);
+    return $this->response->collection($userGroups, new UserGroupTransformer, ["key" => "user-groups"]);
   }
 
   /**
@@ -61,7 +54,7 @@ class UsersController extends Controller
    */
   public function store(Request $request)
   {
-     // TODO Determine Request class name and set proper use stmt
+    //
   }
 
   /**
@@ -72,7 +65,9 @@ class UsersController extends Controller
    */
   public function show($id)
   {
-    //
+    $userGroup = $this->repository->find($id);
+
+    return $this->response->item($userGroup, new UserGroupTransformer, ["key" => "user-groups"]);
   }
 
   /**

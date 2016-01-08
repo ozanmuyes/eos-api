@@ -148,7 +148,7 @@ return [
     Eos\Providers\RouteServiceProvider::class,
 
     Dingo\Api\Provider\LaravelServiceProvider::class,
-//    Barryvdh\Cors\ServiceProvider::class,
+    Barryvdh\Cors\ServiceProvider::class,
     Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     Eos\Repository\Providers\RepositoryServiceProvider::class,
     Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,

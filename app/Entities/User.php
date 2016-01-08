@@ -72,7 +72,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
   ];
 
   /**
-   * Get user groups that the user belongs to.
+   * Get user group(s) that the user belongs to.
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
    */
