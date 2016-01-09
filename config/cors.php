@@ -12,7 +12,8 @@ return [
    |
    */
   'supportsCredentials' => true,
-  'allowedOrigins' => ['http://eos.dev'],
+  'allowedOrigins' => ['*'],
+//  'allowedOrigins' => ['http://eos.dev'],
   'allowedHeaders' => ['*'],
   'allowedMethods' => ['GET', 'POST', 'PUT', 'DELETE'],
   'exposedHeaders' => [],

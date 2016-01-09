@@ -31,6 +31,12 @@ $api->version("v1", function () use ($api) {
     $api->get('/', '\Eos\Http\Controllers\v1\UserGroupsController@index');
     $api->get('{id}', '\Eos\Http\Controllers\v1\UserGroupsController@show');
   });
+
+  $api->group(["prefix" => "permissions"], function () use ($api) {
+//  $api->group(["prefix" => "permissions", "middleware" => "api.auth"], function () use ($api) {
+    $api->get('/', '\Eos\Http\Controllers\v1\PermissionsController@index');
+    $api->get('{id}', '\Eos\Http\Controllers\v1\PermissionsController@show');
+  });
 });
 
 Route::get('/', function () {

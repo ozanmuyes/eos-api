@@ -20,12 +20,12 @@ class AuthenticateController extends Controller
 
     $previousException = null;
     if ($credentials["email"] === null) {
-      $previousException = new NotFoundHttpException("User not found.", null, 0x00C00201);
+      $previousException = new NotFoundHttpException("User not found.", null, 0x00C00101);
     }
 
     if ($credentials["password"] === null) {
       // TODO Test after code \Eos\Exceptions\Factory::collection()
-      throw new NotFoundHttpException("User not found.", $previousException, 0x00C00202);
+      throw new NotFoundHttpException("User not found.", $previousException, 0x00C00102);
     } else if ($previousException !== null) {
       throw $previousException;
     }
@@ -34,7 +34,7 @@ class AuthenticateController extends Controller
     $user = $userRepository->findWhere(["email" => $credentials["email"]]);
     if (count($user) === 0) {
       // The user could not found by that email
-      throw new NotFoundHttpException("User not found.", null, 0x00C00203);
+      throw new NotFoundHttpException("User not found.", null, 0x00C00103);
     }
 
     /**
@@ -44,7 +44,7 @@ class AuthenticateController extends Controller
 
     if (!Hash::check($credentials["password"], $user->password)) {
       // Password mismatch
-      throw new NotFoundHttpException("User not found.", null, 0x00C00204);
+      throw new NotFoundHttpException("User not found.", null, 0x00C00104);
     }
 
     $customClaims = [
@@ -56,7 +56,7 @@ class AuthenticateController extends Controller
     try {
       $payload = JWTFactory::make($customClaims);
     } catch (JWTException $exception) {
-      throw new \Exception("Couldn't create token", 0x00C00205);
+      throw new \Exception("Couldn't create token", 0x00C00105);
     }
 
     try {
@@ -65,7 +65,7 @@ class AuthenticateController extends Controller
        */
       $token = JWTAuth::encode($payload);
     } catch (JWTException $exception) {
-      throw new \Exception("Couldn't create token", 0x00C00206);
+      throw new \Exception("Couldn't create token", 0x00C00106);
     }
 
     return response()->json(["token" => $token->get()]);
@@ -73,6 +73,10 @@ class AuthenticateController extends Controller
 
   public function refresh()
   {
-    return null;
+    // TODO when /token-refresh route hit get the current token to create new one
+    $token = JWTAuth::getToken();
+    $newToken = JWTAuth::refresh($token);
+
+    return response()->json(["token" => $newToken]);
   }
 }
