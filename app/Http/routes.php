@@ -19,10 +19,9 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version("v1", function () use ($api) {
   $api->post('token-auth', '\Eos\Http\Controllers\v1\AuthenticateController@authenticate');
   $api->post('token-refresh', '\Eos\Http\Controllers\v1\AuthenticateController@refresh');
-//  $api->post('token-refresh', ['middleware' => 'jwt.refresh', function () {}]);
 
-  $api->group(["prefix" => "users"], function () use ($api) {
-//  $api->group(["prefix" => "users", "middleware" => "api.auth"], function () use ($api) {
+//  $api->group(["prefix" => "users"], function () use ($api) {
+  $api->group(["prefix" => "users", "middleware" => "api.auth"], function () use ($api) {
     $api->get('/', '\Eos\Http\Controllers\v1\UsersController@index');
   });
 

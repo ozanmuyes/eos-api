@@ -71,10 +71,20 @@ class AuthenticateController extends Controller
     return response()->json(["token" => $token->get()]);
   }
 
-  public function refresh()
+  public function refresh(Request $request)
   {
-    // TODO when /token-refresh route hit get the current token to create new one
-    $token = JWTAuth::getToken();
+    if ($request->token != null) {
+      // First try to obtain token from request body...
+      $token = $request->token;
+    } else {
+      // ...and then try to obtain from request header.
+      $token = JWTAuth::getToken();
+    }
+
+    if (isEmpty($token)) {
+      // TODO Throw exception
+    }
+
     $newToken = JWTAuth::refresh($token);
 
     return response()->json(["token" => $newToken]);

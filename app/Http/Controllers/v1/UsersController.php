@@ -35,9 +35,9 @@ class UsersController extends Controller
   {
     $user = $this->user();
 
-    if ($user == null) {
-      throw new UnauthorizedHttpException("Bearer", "You are not authorized to see all users.", null, 0x00C00301);
-    }
+//    if ($user == null) {
+//      throw new UnauthorizedHttpException("Bearer", "You are not authorized to see all users.", null, 0x00C00301);
+//    }
 
     if (!policy($user)->canSeeAll($user)) {
       throw new HttpException(403, "You are not authorized.", null, [], 0x00C00302);

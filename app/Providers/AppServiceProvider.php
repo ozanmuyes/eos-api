@@ -14,9 +14,19 @@ class AppServiceProvider extends ServiceProvider
    */
   public function boot()
   {
-//    app('Dingo\Api\Exception\Handler')->register(function (Exception $exception) {
-//      return app('Eos\Exceptions\Handler')->handle($exception);
-//    });
+    /**
+     * @var \Dingo\Api\Exception\Handler $dingoExceptionHandler
+     */
+    $dingoExceptionHandler = app('Dingo\Api\Exception\Handler');
+
+    /**
+     * @var \Eos\Exceptions\Handler $eosExceptionHandler
+     */
+    $eosExceptionHandler = app('Eos\Exceptions\Handler');
+
+    $dingoExceptionHandler->register(function (Exception $exception) use ($eosExceptionHandler) {
+      return $eosExceptionHandler->handle($exception);
+    });
   }
 
   /**
