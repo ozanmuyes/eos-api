@@ -24,9 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     $eosExceptionHandler = app('Eos\Exceptions\Handler');
 
-    $dingoExceptionHandler->register(function (Exception $exception) use ($eosExceptionHandler) {
-      return $eosExceptionHandler->handle($exception);
-    });
+//    $dingoExceptionHandler->register(function (Exception $exception) use ($eosExceptionHandler) {
+//      return $eosExceptionHandler->handle($exception);
+//    });
   }
 
   /**

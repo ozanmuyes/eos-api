@@ -7,7 +7,6 @@ use JWTAuth;
 use Dingo\Api\Http\Request;
 use Eos\Http\Controllers\Controller;
 use Eos\Repositories\UserRepository;
-use Tymon\JWTAuth\Facades\JWTFactory;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -47,28 +46,21 @@ class AuthenticateController extends Controller
       throw new NotFoundHttpException("User not found.", null, 0x00C00104);
     }
 
-    $customClaims = [
-      "sub" => $user->id,
-      "fnm" => $user->first_name,
-      "lnm" => $user->last_name
-    ];
-
     try {
-      $payload = JWTFactory::make($customClaims);
+      $token = JWTAuth::fromUser($user);
     } catch (JWTException $exception) {
       throw new \Exception("Couldn't create token", 0x00C00105);
     }
 
-    try {
-      /**
-       * @var \Tymon\JWTAuth\Token $token
-       */
-      $token = JWTAuth::encode($payload);
-    } catch (JWTException $exception) {
-      throw new \Exception("Couldn't create token", 0x00C00106);
-    }
-
-    return response()->json(["token" => $token->get()]);
+    return response()->json([
+      "token" => $token,
+      "user" => [
+        "first_name" => $user->first_name,
+        "middle_name" => $user->middle_name,
+        "last_name" => $user->last_name,
+        "email" => $user->email
+      ]
+    ]);
   }
 
   public function refresh(Request $request)
@@ -81,7 +73,7 @@ class AuthenticateController extends Controller
       $token = JWTAuth::getToken();
     }
 
-    if (isEmpty($token)) {
+    if (empty($token)) {
       // TODO Throw exception
     }
 
