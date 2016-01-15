@@ -40,7 +40,7 @@ class UsersController extends Controller
 //    }
 
     if (!policy($user)->canSeeAll($user)) {
-      throw new HttpException(403, "You are not authorized.", null, [], 0x00C00302);
+      throw new HttpException(403, "You are not authorized to see all users.", null, [], 0x00C00302);
     }
 
     $users = $this->repository->all();

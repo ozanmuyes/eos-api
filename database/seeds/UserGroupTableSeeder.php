@@ -15,7 +15,7 @@ class UserGroupTableSeeder extends Seeder
       [
         "name" => "developer",
         "title" => "Developer",
-        "permissions" => [1, 2, 3, 4, 5]
+        "permissions" => [1, 2, 3, 4, 5, 6]
       ],
       [
         "name" => "tester",

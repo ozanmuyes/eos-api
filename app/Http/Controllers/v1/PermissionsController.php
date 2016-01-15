@@ -2,13 +2,31 @@
 
 namespace Eos\Http\Controllers\v1;
 
-use Illuminate\Http\Request;
-
+use Eos\Entities\Permission;
 use Eos\Http\Requests;
+use Illuminate\Http\Request;
 use Eos\Http\Controllers\Controller;
+use Eos\Repositories\PermissionRepository;
+use Eos\Transformers\PermissionTransformer;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class PermissionsController extends Controller
 {
+  /**
+   * @var \Eos\Repositories\UserRepository $repository
+   */
+  protected $repository;
+
+  /**
+   * PermissionsController constructor.
+   * @param \Eos\Repositories\PermissionRepository $repository
+   */
+  public function __construct(PermissionRepository $repository)
+  {
+    $this->repository = $repository;
+  }
+
   /**
    * Display a listing of the resource.
    *
@@ -16,7 +34,19 @@ class PermissionsController extends Controller
    */
   public function index()
   {
-    //
+    $user = $this->user();
+
+    if ($user == null) {
+      throw new UnauthorizedHttpException("Bearer", "You are not authorized to see all permissions.", null, 0x00C00401);
+    }
+
+    if (!policy(Permission::class)->canSeeAll($user)) {
+      throw new HttpException(403, "You are not authorized to see all permissions.", null, [], 0x00C00402);
+    }
+
+    $permissions = $this->repository->all();
+
+    return $this->response->collection($permissions, new PermissionTransformer, ["key" => "permissions"]);
   }
 
   /**

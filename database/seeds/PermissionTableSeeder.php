@@ -36,6 +36,12 @@ class PermissionTableSeeder extends Seeder
         "name" => "users.view.self",
         "title" => "See Self User",
         "description" => "See self (users') all information (except hidden ones)"
+      ],
+
+      [
+        "name" => "permissions.index",
+        "title" => "See All Permissions",
+        "description" => "See all permissions"
       ]
     ];
 

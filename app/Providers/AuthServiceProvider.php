@@ -13,8 +13,9 @@ class AuthServiceProvider extends ServiceProvider
    * @var array
    */
   protected $policies = [
-    'Eos\Model' => 'Eos\Policies\ModelPolicy',
+//    'Eos\Model' => 'Eos\Policies\ModelPolicy',
     \Eos\Entities\User::class => \Eos\Policies\v1\UserPolicy::class,
+    \Eos\Entities\Permission::class => \Eos\Policies\v1\PermissionPolicy::class,
   ];
 
   /**

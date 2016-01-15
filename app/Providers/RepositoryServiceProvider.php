@@ -14,5 +14,6 @@ class RepositoryServiceProvider extends ServiceProvider {
   {
     app()->bind('\Eos\Repositories\UserRepository', '\Eos\Repositories\UserRepositoryEloquent');
     app()->bind('\Eos\Repositories\UserGroupRepository', '\Eos\Repositories\UserGroupRepositoryEloquent');
+    app()->bind('\Eos\Repositories\PermissionRepository', '\Eos\Repositories\PermissionRepositoryEloquent');
   }
 }

@@ -17,6 +17,8 @@ class AuthenticateController extends Controller
     // grab credentials from the request
     $credentials = $request->only('email', 'password');
 
+    // TODO Move user authentication code somewhere more appropriate
+
     $previousException = null;
     if ($credentials["email"] === null) {
       $previousException = new NotFoundHttpException("User not found.", null, 0x00C00101);
